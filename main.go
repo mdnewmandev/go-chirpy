@@ -11,6 +11,7 @@ func main() {
 	}
 
 	mux.Handle("/", http.FileServer(http.Dir(".")))
+	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
 	server.ListenAndServe()
 }
