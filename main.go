@@ -10,8 +10,13 @@ func main() {
 		Handler: mux,
 	}
 
-	mux.Handle("/", http.FileServer(http.Dir(".")))
-	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+	mux.Handle("/app/", http.StripPrefix("/app", http.FileServer(http.Dir("app"))))
+	mux.Handle("/app/assets/", http.StripPrefix("/app/assets/", http.FileServer(http.Dir("app/assets"))))
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		w.WriteHeader(200)
+		w.Write([]byte("OK"))
+	})
 
 	server.ListenAndServe()
 }
