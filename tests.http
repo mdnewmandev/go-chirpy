@@ -6,37 +6,45 @@ GET http://localhost:8080/admin/metrics
 ###
 POST http://localhost:8080/admin/reset
 ###
-POST http://localhost:8080/api/validate_chirp
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+    "email": "bestfriend@salmon.com"
+}
+###
+POST http://localhost:8080/api/chirps
 Content-Type: application/json
 
 {
     "body": "Hello, World!"
 }
 ###
-POST http://localhost:8080/api/validate_chirp
+POST http://localhost:8080/api/chirps
 Content-Type: application/json
 
 {
     "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui libero, explicabo quas a labore repellendus, laboriosam veritatis suscipit consequuntur dicta eos ipsam ea, unde tempora voluptatem dignissimos ratione mollitia eum reiciendis. A atque itaque minima! Modi sapiente eligendi, cum sed consequuntur quas aspernatur culpa iste molestias facere inventore, corporis molestiae earum numquam, unde praesentium ducimus incidunt? Corrupti optio blanditiis vitae eos a laboriosam porro laborum natus nulla molestias itaque ipsam error facilis vero explicabo rerum deleniti enim sapiente accusamus odio, amet tempore laudantium. Esse delectus numquam totam quae ipsa saepe, molestiae tempora libero nisi dolorem dolorum iste, natus, doloremque a velit eos officia aperiam debitis expedita consequatur adipisci nam iure."
 }
 ###
-POST http://localhost:8080/api/validate_chirp
+POST http://localhost:8080/api/chirps
 Content-Type: application/json
 
 {
     "body": "kerfuffle sharbert fornax this is what I say"
 }
 ###
-POST http://localhost:8080/api/validate_chirp
+POST http://localhost:8080/api/chirps
 Content-Type: application/json
 
 {
     "body": "kerfuffle! sharbert! fornax! this is what I really want to say!"
 }
 ###
-POST http://localhost:8080/api/users
+POST http://localhost:8080/api/chirps
 Content-Type: application/json
 
 {
-    "email": "bestfriend@salmon.com"
+    "body": "I wonder how much I need to make a living?",
+    "user_id": "05a3f0cf-416f-4b18-861b-937f194e80f7"
 }
