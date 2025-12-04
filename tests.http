@@ -48,3 +48,10 @@ Content-Type: application/json
     "body": "I wonder how much I need to make a living?",
     "user_id": "05a3f0cf-416f-4b18-861b-937f194e80f7"
 }
+###
+GET http://localhost:8080/api/chirps
+###
+GET http://localhost:8080/api/chirps/caa7f570-2907-46d3-b35e-db01ca936a1d
+
+###
+GET http://localhost:8080/api/chirps/caa7f570-2907-46d3-b35e-db00ca825a2d
