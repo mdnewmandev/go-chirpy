@@ -61,6 +61,7 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "Couldn't create refresh token", err)
+		return
 	}
 
 	respondWithJSON(w, http.StatusOK, response{
