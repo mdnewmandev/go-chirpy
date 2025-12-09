@@ -19,6 +19,7 @@ type apiConfig struct {
 	db 				*database.Queries
 	PLATFORM		string
 	jwtSecret		string
+	polkaKey		string
 }
 
 type User struct {
@@ -26,6 +27,7 @@ type User struct {
 	CreatedAt 	time.Time `json:"created_at"`
 	UpdatedAt 	time.Time `json:"updated_at"`
 	Email 		string `json:"email"`
+	IsChirpyRed bool `json:"is_chirpy_red"`
 }
 
 func main() {
@@ -43,6 +45,11 @@ func main() {
 		log.Fatal("JWT_SECRET environment variable is not set")
 	}
 
+	polkaKey := os.Getenv("POLKA_KEY")
+	if polkaKey == "" {
+		log.Fatal("POLKA_KEY environment variable is not set")
+	}
+	
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
 		log.Fatalf("Error connecting to database: %v", err)
@@ -54,6 +61,7 @@ func main() {
 		db: 			dbQueries,
 		PLATFORM:		os.Getenv("PLATFORM"),
 		jwtSecret: 		jwtSecret,
+		polkaKey: 		polkaKey,
 	}
 
 	mux := http.NewServeMux()
@@ -76,6 +84,8 @@ func main() {
 
 	mux.HandleFunc("GET /admin/metrics", apiCfg.handlerMetrics)
 	mux.HandleFunc("POST /admin/reset", apiCfg.handlerReset)
+
+	mux.HandleFunc("POST /api/polka/webhooks", apiCfg.handlerUserUpgrade)
 
 	server := &http.Server{
 		Addr:	":" + port,

@@ -17,7 +17,12 @@ WHERE email = $1;
 UPDATE users
 SET email = $1, hashed_password = $2, updated_at = NOW()
 WHERE id = $3
-RETURNING id, email, created_at, updated_at;
+RETURNING id, email, created_at, updated_at, is_chirpy_red;
+
+-- name: UpdateUserToChirpyRed :exec
+UPDATE users
+SET is_chirpy_red = true, updated_at = NOW()
+WHERE id = $1;
 
 -- name: DeleteAllUsers :exec
 DELETE FROM users;
