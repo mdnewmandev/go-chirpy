@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"sort"
 
 	"github.com/google/uuid"
 	"github.com/lemmydevvy/go-chirpy/internal/database"
@@ -21,6 +22,16 @@ func (cfg *apiConfig) handlerChirpsList(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "Couldn't retrieve chirps", err)
 		return
+	}
+
+	sortBy := r.URL.Query().Get("sort")
+	if sortBy != "" {
+		sort.Slice(chirps, func(i, j int) bool {
+			if sortBy == "desc" {
+				return chirps[i].CreatedAt.After(chirps[j].CreatedAt)
+			}
+			return chirps[i].CreatedAt.Before(chirps[j].CreatedAt)
+		})
 	}
 
 	chirpsList := []Chirp{}
